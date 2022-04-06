@@ -1,11 +1,14 @@
 package com.boaentrega.pedidoms.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boaentrega.pedidoms.domain.Cliente;
 import com.boaentrega.pedidoms.domain.Pedido;
+import com.boaentrega.pedidoms.feignclients.ClienteFeignClient;
 import com.boaentrega.pedidoms.infrastructure.PedidoRepository;
 
 @Service
@@ -14,6 +17,9 @@ public class PedidoServiceImpl implements PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private ClienteFeignClient clienteFeignClient;
+    
     public List<Pedido> findAll() {
         return pedidoRepository.findAll();
     }
@@ -42,5 +48,23 @@ public class PedidoServiceImpl implements PedidoService {
     public void deletePedidoById(Long id) {
     	pedidoRepository.deleteById(id);
     }
+
+	@Override
+	public Double getValorNegociado(String numero, Long clienteId) {
+
+		Cliente cliente = clienteFeignClient.FindById(clienteId).getBody();
+    	
+    	if(cliente == null)
+    		return BigDecimal.ZERO.doubleValue();
+    	
+    	Pedido pedido = pedidoRepository.findPedidoByNumero(numero);
+    	
+    	if(pedido == null)
+    		return BigDecimal.ZERO.doubleValue();
+    	
+    	Double valor = pedido.getTotal() - pedido.getTotal()*cliente.getDescontoContratual()/100;
+    	
+    	return valor;
+	}
 
 }

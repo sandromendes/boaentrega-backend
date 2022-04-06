@@ -15,4 +15,6 @@ public interface PedidoService {
     Pedido updatePedido(Pedido pedido);
 
     void deletePedidoById(Long id);
+    
+    Double getValorNegociado(String numero, Long clienteId);
 }

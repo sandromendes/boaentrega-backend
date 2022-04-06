@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.boaentrega.pedidoms.domain.Cliente;
 import com.boaentrega.pedidoms.domain.Pedido;
 import com.boaentrega.pedidoms.dto.PedidoDTO;
+import com.boaentrega.pedidoms.feignclients.ClienteFeignClient;
 import com.boaentrega.pedidoms.request.DescontoPedidoRequest;
 import com.boaentrega.pedidoms.service.PedidoService;
 import com.boaentrega.pedidoms.utils.Mapper;
@@ -33,9 +34,6 @@ public class PedidoResource {
 	
     @Autowired
     private PedidoService pedidoService;
-    
-    @Autowired
-    private RestTemplate restTemplate;
 
     @GetMapping
     public ResponseEntity<List<PedidoDTO>> getAll() {
@@ -58,20 +56,7 @@ public class PedidoResource {
     @GetMapping(value = "/valorNegociado")
     public ResponseEntity<Double> getValorNegociado(@RequestBody DescontoPedidoRequest request){
     	
-    	Map<String, String> uriVariables = new HashMap<>();
-    	uriVariables.put("id", request.clienteId.toString());
-    	
-    	Cliente cliente = restTemplate.getForObject(clientHost + "/clientes/{id}", Cliente.class, uriVariables);
-    	
-    	if(cliente == null)
-    		return ResponseEntity.notFound().build();
-    	
-    	PedidoDTO pedido = Mapper.map(pedidoService.findPedidoByNumero(request.numeroPedido), PedidoDTO.class);
-    	
-    	if(pedido == null)
-    		return ResponseEntity.notFound().build();
-    	
-    	Double valor = pedido.getTotal() - pedido.getTotal()*cliente.getDescontoContratual()/100;
+    	Double valor = pedidoService.getValorNegociado(request.numeroPedido, request.clienteId);
     	
     	return ResponseEntity.ok(valor);
     }
