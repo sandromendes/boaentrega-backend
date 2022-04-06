@@ -2,7 +2,10 @@ package com.boaentrega.clientems.resources;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,11 @@ import com.boaentrega.clientems.utils.Mapper;
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
 	
+	private static Logger logger = LoggerFactory.getLogger(ClienteResource.class);
+	
+	@Autowired
+	private Environment env;
+	
 	@Autowired
 	private ClienteService clienteService;
 
@@ -33,6 +41,9 @@ public class ClienteResource {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cliente> FindById(@PathVariable Long id){
+		
+		logger.info("PORT = " + env.getProperty("local.server.port"));
+		
 		Cliente cliente =  clienteService.findById(id);
 		return ResponseEntity.ok(cliente);
 	}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.boaentrega.pedidoms.domain.Cliente;
 
 @Component
-@FeignClient(name = "cliente-ms", url = "localhost:8001", path = "/clientes")
+@FeignClient(name = "cliente-ms", path = "/clientes")
 public interface ClienteFeignClient {
 
 	@GetMapping(value = "/{id}")

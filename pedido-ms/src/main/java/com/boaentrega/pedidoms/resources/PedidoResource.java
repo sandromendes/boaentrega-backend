@@ -1,11 +1,8 @@
 package com.boaentrega.pedidoms.resources;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.boaentrega.pedidoms.domain.Cliente;
 import com.boaentrega.pedidoms.domain.Pedido;
 import com.boaentrega.pedidoms.dto.PedidoDTO;
-import com.boaentrega.pedidoms.feignclients.ClienteFeignClient;
 import com.boaentrega.pedidoms.request.DescontoPedidoRequest;
 import com.boaentrega.pedidoms.service.PedidoService;
 import com.boaentrega.pedidoms.utils.Mapper;
@@ -28,9 +22,6 @@ import com.boaentrega.pedidoms.utils.Mapper;
 @RestController
 @RequestMapping(value = "/pedidos")
 public class PedidoResource {
-
-	@Value("${cliente-ms.host}")
-	private String clientHost;
 	
     @Autowired
     private PedidoService pedidoService;
