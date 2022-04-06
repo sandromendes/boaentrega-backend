@@ -8,7 +8,7 @@ public interface PedidoService {
 
     Pedido findPedidoByNumero(String numero);
 
-    Pedido findPedidoByClienteId(Long clienteId);
+    List<Pedido> findPedidoByClienteId(Long clienteId);
 
     Pedido savePedido(Pedido pedido);
     

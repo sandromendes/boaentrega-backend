@@ -13,18 +13,24 @@ public class Pedido{
 	private Date dataGeracao;
 	private Long clienteId;
 	private double total;
+	private Endereco endereco;
+	private Cliente cliente;
 	
 	public Pedido() {
 	}
-
-	public Pedido(Long id, String numero, Date dataGeracao, Long clienteId, double total) {
+	
+	public Pedido(Long id, String numero, Date dataGeracao, Long clienteId, double total, Endereco endereco,
+			Cliente cliente) {
+		super();
 		this.id = id;
 		this.numero = numero;
 		this.dataGeracao = dataGeracao;
 		this.clienteId = clienteId;
 		this.total = total;
+		this.endereco = endereco;
+		this.cliente = cliente;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -65,9 +71,25 @@ public class Pedido{
 		this.total = total;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	@Override
 	public String toString() {
 		return "Pedido [id=" + id + ", numero=" + numero + ", dataGeracao=" + dataGeracao + ", clienteId=" + clienteId
-				+ ", total=" + total + "]";
+				+ ", total=" + total + ", endereco=" + endereco + ", cliente=" + cliente + "]";
 	}
 }

@@ -3,7 +3,6 @@ package com.boaentrega.clientems.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,20 +38,20 @@ public class ClienteResource {
 	}
 	
     @PostMapping
-    public ResponseEntity<Cliente> save(@RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<String> save(@RequestBody ClienteDTO clienteDTO) {
     	clienteService.save(Mapper.map(clienteDTO, Cliente.class));
-        return new ResponseEntity("Cliente adicionado com sucesso", HttpStatus.OK);
+        return ResponseEntity.ok("Cliente adicionado com sucesso");
     }
     
     @PutMapping
     public ResponseEntity<?> update(@RequestBody ClienteDTO clienteDTO) {
     	clienteService.update(Mapper.map(clienteDTO, Cliente.class));
-        return new ResponseEntity("Cliente atualizado com sucesso", HttpStatus.OK);
+        return ResponseEntity.ok("Cliente atualizado com sucesso");
     }
 
     @DeleteMapping(value = "/{numero}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
     	clienteService.delete(clienteService.findById(id).getId());
-        return new ResponseEntity("Cliente removido com sucesso", HttpStatus.OK);
+        return ResponseEntity.ok("Cliente removido com sucesso");
     }
 }

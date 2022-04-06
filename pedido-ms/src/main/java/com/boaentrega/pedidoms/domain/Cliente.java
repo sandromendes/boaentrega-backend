@@ -1,23 +1,13 @@
-package com.boaentrega.clientems.domain;
+package com.boaentrega.pedidoms.domain;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Table(name = "tb_cliente")
-public class Cliente implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class Cliente{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nomeFantasia;
 	private String razaoSocial;
@@ -78,7 +68,7 @@ public class Cliente implements Serializable{
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-
+	
 	public Double getDescontoContratual() {
 		return descontoContratual;
 	}
