@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boaentrega.pedidoms.domain.Pedido;
+import com.boaentrega.pedidoms.dto.NegociacaoDTO;
 import com.boaentrega.pedidoms.dto.PedidoDTO;
 import com.boaentrega.pedidoms.request.DescontoPedidoRequest;
 import com.boaentrega.pedidoms.service.PedidoService;
 import com.boaentrega.pedidoms.utils.Mapper;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 @RequestMapping(value = "/pedidos")
@@ -44,12 +46,26 @@ public class PedidoResource {
         return ResponseEntity.ok(pedido);
     }
     
+    @HystrixCommand(fallbackMethod = "getValorNegociadoAlternative")
     @GetMapping(value = "/valorNegociado")
-    public ResponseEntity<Double> getValorNegociado(@RequestBody DescontoPedidoRequest request){
+    public ResponseEntity<NegociacaoDTO> getValorNegociado(@RequestBody DescontoPedidoRequest request){
     	
-    	Double valor = pedidoService.getValorNegociado(request.pedidoId, request.clienteId);
+    	NegociacaoDTO negociacao = pedidoService.getValorNegociado(request.pedidoId, request.clienteId);
     	
-    	return ResponseEntity.ok(valor);
+    	return ResponseEntity.ok(negociacao);
+    }
+    
+    public ResponseEntity<NegociacaoDTO> getValorNegociadoAlternative(DescontoPedidoRequest request){
+    	
+    	PedidoDTO pedido = Mapper.map(pedidoService.findPedidoById(request.pedidoId), PedidoDTO.class);
+    	
+    	Double descontoPadrao = 0.5;
+    	
+    	Double valor = pedido.getTotal() - pedido.getTotal()*descontoPadrao/100;
+    	
+    	NegociacaoDTO negociacao = new NegociacaoDTO(pedido.getTotal(), descontoPadrao, valor, "Chamada fallback... Foi aplicado o desconto padrão");
+    	
+    	return ResponseEntity.ok(negociacao);
     }
 
     @PostMapping

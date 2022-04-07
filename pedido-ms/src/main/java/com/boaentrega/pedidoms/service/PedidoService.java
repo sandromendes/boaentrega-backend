@@ -2,6 +2,7 @@ package com.boaentrega.pedidoms.service;
 import java.util.List;
 
 import com.boaentrega.pedidoms.domain.Pedido;
+import com.boaentrega.pedidoms.dto.NegociacaoDTO;
 
 public interface PedidoService {
     List<Pedido> findAll();
@@ -18,5 +19,5 @@ public interface PedidoService {
 
     void deletePedidoById(Long id);
     
-    Double getValorNegociado(Long pedidoId, Long clienteId);
+    NegociacaoDTO getValorNegociado(Long pedidoId, Long clienteId);
 }

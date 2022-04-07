@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.boaentrega.pedidoms.domain.Cliente;
 import com.boaentrega.pedidoms.domain.Pedido;
+import com.boaentrega.pedidoms.dto.NegociacaoDTO;
 import com.boaentrega.pedidoms.feignclients.ClienteFeignClient;
 import com.boaentrega.pedidoms.infrastructure.PedidoRepository;
 
@@ -55,21 +56,21 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
 	@Override
-	public Double getValorNegociado(Long pedidoId, Long clienteId) {
+	public NegociacaoDTO getValorNegociado(Long pedidoId, Long clienteId) {
 
 		Cliente cliente = clienteFeignClient.FindById(clienteId).getBody();
     	
     	if(cliente == null)
-    		return BigDecimal.ZERO.doubleValue();
+    		return new NegociacaoDTO(BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), "Cliente não encontrado");
     	
     	Pedido pedido = pedidoRepository.findById(pedidoId).orElse(null);
     	
     	if(pedido == null)
-    		return BigDecimal.ZERO.doubleValue();
+    		return new NegociacaoDTO(BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), "Pedido não encontrado");
     	
     	Double valor = pedido.getTotal() - pedido.getTotal()*cliente.getDescontoContratual()/100;
     	
-    	return valor;
+    	return new NegociacaoDTO(pedido.getTotal(), cliente.getDescontoContratual(), valor, "Acessou o cliente-ms com sucesso");
 	}
 
 }
