@@ -25,6 +25,11 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
+    public Pedido findPedidoById(Long id) {
+    	return pedidoRepository.findById(id).orElse(null);
+    }
+    
+    @Override
     public Pedido findPedidoByNumero(String numero) {
         return pedidoRepository.findPedidoByNumero(numero);
     }
@@ -50,14 +55,14 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
 	@Override
-	public Double getValorNegociado(String numero, Long clienteId) {
+	public Double getValorNegociado(Long pedidoId, Long clienteId) {
 
 		Cliente cliente = clienteFeignClient.FindById(clienteId).getBody();
     	
     	if(cliente == null)
     		return BigDecimal.ZERO.doubleValue();
     	
-    	Pedido pedido = pedidoRepository.findPedidoByNumero(numero);
+    	Pedido pedido = pedidoRepository.findById(pedidoId).orElse(null);
     	
     	if(pedido == null)
     		return BigDecimal.ZERO.doubleValue();

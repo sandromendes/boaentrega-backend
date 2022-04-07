@@ -32,9 +32,9 @@ public class PedidoResource {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping(value = "/byNumero/{numero}")
-    public ResponseEntity<PedidoDTO> findByNumero(@PathVariable("numero") String numero) {
-    	PedidoDTO pedido = Mapper.map(pedidoService.findPedidoByNumero(numero), PedidoDTO.class);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PedidoDTO> findByNumero(@PathVariable("id") Long id) {
+    	PedidoDTO pedido = Mapper.map(pedidoService.findPedidoById(id), PedidoDTO.class);
         return ResponseEntity.ok(pedido);
     }
 
@@ -47,7 +47,7 @@ public class PedidoResource {
     @GetMapping(value = "/valorNegociado")
     public ResponseEntity<Double> getValorNegociado(@RequestBody DescontoPedidoRequest request){
     	
-    	Double valor = pedidoService.getValorNegociado(request.numeroPedido, request.clienteId);
+    	Double valor = pedidoService.getValorNegociado(request.pedidoId, request.clienteId);
     	
     	return ResponseEntity.ok(valor);
     }

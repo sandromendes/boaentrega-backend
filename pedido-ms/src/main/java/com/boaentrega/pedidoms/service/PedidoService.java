@@ -6,6 +6,8 @@ import com.boaentrega.pedidoms.domain.Pedido;
 public interface PedidoService {
     List<Pedido> findAll();
 
+    Pedido findPedidoById(Long id);
+    
     Pedido findPedidoByNumero(String numero);
 
     List<Pedido> findPedidoByClienteId(Long clienteId);
@@ -16,5 +18,5 @@ public interface PedidoService {
 
     void deletePedidoById(Long id);
     
-    Double getValorNegociado(String numero, Long clienteId);
+    Double getValorNegociado(Long pedidoId, Long clienteId);
 }

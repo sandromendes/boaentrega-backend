@@ -3,15 +3,15 @@ package com.boaentrega.pedidoms.request;
 public class DescontoPedidoRequest {
 	
 	public Long clienteId;
-	public String numeroPedido;
+	public Long pedidoId;
 	
 	public DescontoPedidoRequest() {
 	}
 
-	public DescontoPedidoRequest(Long clienteId, String numeroPedido) {
+	public DescontoPedidoRequest(Long clienteId, Long numeroPedido) {
 		super();
 		this.clienteId = clienteId;
-		this.numeroPedido = numeroPedido;
+		this.pedidoId = numeroPedido;
 	}
 
 	public Long getClienteId() {
@@ -22,11 +22,11 @@ public class DescontoPedidoRequest {
 		this.clienteId = clienteId;
 	}
 
-	public String getNumeroPedido() {
-		return numeroPedido;
+	public Long getNumeroPedido() {
+		return pedidoId;
 	}
 
-	public void setNumeroPedido(String numeroPedido) {
-		this.numeroPedido = numeroPedido;
+	public void setNumeroPedido(Long numeroPedido) {
+		this.pedidoId = numeroPedido;
 	}
 }
