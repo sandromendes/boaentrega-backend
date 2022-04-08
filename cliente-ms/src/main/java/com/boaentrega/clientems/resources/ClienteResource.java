@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,20 +28,27 @@ public class ClienteResource {
 	
 	private static Logger logger = LoggerFactory.getLogger(ClienteResource.class);
 	
+	@Value("${test.config}") private String testConfig;
+	
 	@Autowired
 	private Environment env;
 	
 	@Autowired
 	private ClienteService clienteService;
 
+	@GetMapping(value = "/config")
+	public ResponseEntity<String> getConfig(){
+		return ResponseEntity.ok("CONFIG = " + testConfig);
+	}
+	
 	@GetMapping
-	public ResponseEntity<List<Cliente>> FindAll(){
+	public ResponseEntity<List<Cliente>> findAll(){
 		List<Cliente> list = clienteService.findAll();
 		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Cliente> FindById(@PathVariable Long id){
+	public ResponseEntity<Cliente> findById(@PathVariable Long id){
 		
 		logger.info("PORT = " + env.getProperty("local.server.port"));
 		
