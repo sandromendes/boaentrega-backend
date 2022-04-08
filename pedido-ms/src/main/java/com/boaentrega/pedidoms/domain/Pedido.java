@@ -13,22 +13,39 @@ public class Pedido{
 	private Date dataGeracao;
 	private Long clienteId;
 	private double total;
-	private Endereco endereco;
-	private Cliente cliente;
+	private String logradouro;
+	private String cidade;
+	private String estado;
+	private String numeroEndereco;
+	private String complemento;
+	private String cep;
 	
 	public Pedido() {
 	}
 	
-	public Pedido(Long id, String numero, Date dataGeracao, Long clienteId, double total, Endereco endereco,
-			Cliente cliente) {
+	public Pedido(Long id, String numero, Date dataGeracao, Long clienteId, double total) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.dataGeracao = dataGeracao;
 		this.clienteId = clienteId;
 		this.total = total;
-		this.endereco = endereco;
-		this.cliente = cliente;
+	}
+
+	public Pedido(Long id, String numero, Date dataGeracao, Long clienteId, double total, String logradouro,
+			String cidade, String estado, String numeroEndereco, String complemento, String cep) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.dataGeracao = dataGeracao;
+		this.clienteId = clienteId;
+		this.total = total;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.numeroEndereco = numeroEndereco;
+		this.complemento = complemento;
+		this.cep = cep;
 	}
 
 	public Long getId() {
@@ -71,25 +88,58 @@ public class Pedido{
 		this.total = total;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getNumeroEndereco() {
+		return numeroEndereco;
+	}
+
+	public void setNumeroEndereco(String numeroEndereco) {
+		this.numeroEndereco = numeroEndereco;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	@Override
 	public String toString() {
 		return "Pedido [id=" + id + ", numero=" + numero + ", dataGeracao=" + dataGeracao + ", clienteId=" + clienteId
-				+ ", total=" + total + ", endereco=" + endereco + ", cliente=" + cliente + "]";
+				+ ", total=" + total + ", logradouro=" + logradouro + ", cidade=" + cidade + ", estado=" + estado
+				+ ", numeroEndereco=" + numeroEndereco + ", complemento=" + complemento + ", cep=" + cep + "]";
 	}
 }

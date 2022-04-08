@@ -8,6 +8,12 @@ public class PedidoDTO {
 	private Date dataGeracao;
 	private Long clienteId;
 	private double total;
+	private String logradouro;
+	private String cidade;
+	private String estado;
+	private String numeroEndereco;
+	private String complemento;
+	private String cep;
 	
 	public PedidoDTO() {
 	}
@@ -19,6 +25,22 @@ public class PedidoDTO {
 		this.dataGeracao = dataGeracao;
 		this.clienteId = clienteId;
 		this.total = total;
+	}
+
+	public PedidoDTO(Long id, String numero, Date dataGeracao, Long clienteId, double total, String logradouro,
+			String cidade, String estado, String numeroEndereco, String complemento, String cep) {
+		super();
+		this.id = id;
+		this.numero = numero;
+		this.dataGeracao = dataGeracao;
+		this.clienteId = clienteId;
+		this.total = total;
+		this.logradouro = logradouro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.numeroEndereco = numeroEndereco;
+		this.complemento = complemento;
+		this.cep = cep;
 	}
 
 	public Long getId() {
@@ -60,4 +82,54 @@ public class PedidoDTO {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getNumeroEndereco() {
+		return numeroEndereco;
+	}
+
+	public void setNumeroEndereco(String numeroEndereco) {
+		this.numeroEndereco = numeroEndereco;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	
+	
 }

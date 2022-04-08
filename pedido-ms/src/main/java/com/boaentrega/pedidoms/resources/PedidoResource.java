@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boaentrega.pedidoms.domain.Pedido;
+import com.boaentrega.pedidoms.dto.EnderecoDTO;
 import com.boaentrega.pedidoms.dto.NegociacaoDTO;
 import com.boaentrega.pedidoms.dto.PedidoDTO;
 import com.boaentrega.pedidoms.request.DescontoPedidoRequest;
@@ -75,7 +76,7 @@ public class PedidoResource {
     }
     
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody PedidoDTO pedidoDTO) {
+    public ResponseEntity<?> update(@RequestBody PedidoDTO pedidoDTO, @RequestBody EnderecoDTO enderecoDTO) {
     	pedidoService.updatePedido(Mapper.map(pedidoDTO, Pedido.class));
         return ResponseEntity.ok("Pedido atualizado com sucesso");
     }
