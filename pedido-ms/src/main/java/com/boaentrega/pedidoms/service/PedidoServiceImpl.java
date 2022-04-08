@@ -27,7 +27,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido findPedidoById(Long id) {
-    	return pedidoRepository.findById(id).orElse(null);
+    	return pedidoRepository.findById(id).orElse(new Pedido());
     }
     
     @Override
