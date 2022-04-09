@@ -3,7 +3,6 @@ package com.boaentrega.apigatewayzuul.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.Route;
