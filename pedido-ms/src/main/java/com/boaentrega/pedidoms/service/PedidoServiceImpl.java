@@ -61,16 +61,18 @@ public class PedidoServiceImpl implements PedidoService {
 		Cliente cliente = clienteFeignClient.FindById(clienteId).getBody();
     	
     	if(cliente == null)
-    		return new NegociacaoDTO(BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), "Cliente não encontrado");
+    		return new NegociacaoDTO("", BigDecimal.ZERO.doubleValue(), 
+    				BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), "Cliente não encontrado");
     	
     	Pedido pedido = pedidoRepository.findById(pedidoId).orElse(null);
     	
     	if(pedido == null)
-    		return new NegociacaoDTO(BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), "Pedido não encontrado");
+    		return new NegociacaoDTO("", BigDecimal.ZERO.doubleValue(), 
+    				BigDecimal.ZERO.doubleValue(), BigDecimal.ZERO.doubleValue(), "Pedido não encontrado");
     	
     	Double valor = pedido.getTotal() - pedido.getTotal()*cliente.getDescontoContratual()/100;
     	
-    	return new NegociacaoDTO(pedido.getTotal(), cliente.getDescontoContratual(), valor, "Acessou o cliente-ms com sucesso");
+    	return new NegociacaoDTO(pedido.getNumero(), pedido.getTotal(), cliente.getDescontoContratual(), valor, "Acessou o cliente-ms com sucesso");
 	}
 
 }

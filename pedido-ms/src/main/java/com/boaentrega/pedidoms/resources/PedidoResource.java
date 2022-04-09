@@ -41,14 +41,14 @@ public class PedidoResource {
         return ResponseEntity.ok(pedido);
     }
 
-    @GetMapping(value = "/byClienteId/{clienteId}")
-    public ResponseEntity<PedidoDTO> findByEmail(@PathVariable("clienteId") Long clienteId) {
-    	PedidoDTO pedido = Mapper.map(pedidoService.findPedidoByClienteId(clienteId), PedidoDTO.class);
+    @GetMapping(value = "/byCliente/{id}")
+    public ResponseEntity<PedidoDTO> findByEmail(@PathVariable("id") Long id) {
+    	PedidoDTO pedido = Mapper.map(pedidoService.findPedidoByClienteId(id), PedidoDTO.class);
         return ResponseEntity.ok(pedido);
     }
     
     @HystrixCommand(fallbackMethod = "getValorNegociadoAlternative")
-    @GetMapping(value = "/valorNegociado")
+    @GetMapping(value = "/negociacao")
     public ResponseEntity<NegociacaoDTO> getValorNegociado(@RequestBody DescontoPedidoRequest request){
     	
     	NegociacaoDTO negociacao = pedidoService.getValorNegociado(request.pedidoId, request.clienteId);
@@ -64,7 +64,7 @@ public class PedidoResource {
     	
     	Double valor = pedido.getTotal() - pedido.getTotal()*descontoPadrao/100;
     	
-    	NegociacaoDTO negociacao = new NegociacaoDTO(pedido.getTotal(), descontoPadrao, valor, "Chamada fallback... Foi aplicado o desconto padrão");
+    	NegociacaoDTO negociacao = new NegociacaoDTO(pedido.getNumero(), pedido.getTotal(), descontoPadrao, valor, "Chamada fallback... Foi aplicado o desconto padrão");
     	
     	return ResponseEntity.ok(negociacao);
     }
