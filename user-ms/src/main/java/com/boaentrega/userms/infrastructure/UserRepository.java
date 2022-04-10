@@ -6,4 +6,5 @@ import com.boaentrega.userms.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	User findByEmail(String email);
 }
