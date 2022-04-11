@@ -17,10 +17,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	private static final String[] PUBLIC = {
 			"/api/oauth-ms/v1/oauth/token",
-			"/api/oauth-ms/v1/users/search",
-			"/api/cliente-ms/v2/**",
-			"/api/pedido-ms/v2/**",
-			"/api/user-ms/v2/**"
+			"/cliente-ms/v2/api-docs",
+			"/pedido-ms/v2/api-docs",
+			"/user-ms/v2/api-docs",
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
 			};
 	
 	private static final String[] OPERATOR = {"/api/cliente-ms/v1/**"};
