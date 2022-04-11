@@ -1,7 +1,8 @@
 package com.boaentrega.oauthms.service;
 
-import com.boaentrega.oauthms.domain.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserService {
-	User findByEmail(String email);
+	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

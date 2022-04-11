@@ -18,19 +18,6 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Autowired
 	private UserFeignClients userFeignClients;
-	
-	public User findByEmail(String email) {
-		User user = userFeignClients.findByEmail(email).getBody();
-		
-		if(user == null) {
-			logger.error("E-mail não encontrado: " + email);
-			throw new IllegalArgumentException("E-mail não encontrado: " + email);
-		}
-		
-		logger.info("E-mail encontrado: " + email);
-		
-		return user;
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
