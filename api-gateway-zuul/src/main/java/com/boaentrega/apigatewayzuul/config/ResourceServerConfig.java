@@ -33,7 +33,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	private static final String[] ADMIN = {
 			"/api/pedido-ms/v1/**", 
-			"/api/user-ms/v1/**"}; 
+			"/api/user-ms/v1/**",
+			"/actuator/**",
+			"/cliente-ms/actuator/**",
+			"/oauth-ms/actuator/**"}; 
 	
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
