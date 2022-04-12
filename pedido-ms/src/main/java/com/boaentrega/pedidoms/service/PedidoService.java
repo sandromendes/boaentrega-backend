@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.boaentrega.pedidoms.domain.Pedido;
 import com.boaentrega.pedidoms.dto.NegociacaoDTO;
+import com.boaentrega.pedidoms.dto.OrcamentoDTO;
 
 public interface PedidoService {
     List<Pedido> findAll();
@@ -20,4 +21,6 @@ public interface PedidoService {
     void deletePedidoById(Long id);
     
     NegociacaoDTO getValorNegociado(Long pedidoId, Long clienteId);
+    
+    OrcamentoDTO getOrcamento(String cepOrigem, String cepDestino);
 }

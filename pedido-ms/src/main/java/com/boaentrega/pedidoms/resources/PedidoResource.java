@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boaentrega.pedidoms.domain.Pedido;
 import com.boaentrega.pedidoms.dto.EnderecoDTO;
 import com.boaentrega.pedidoms.dto.NegociacaoDTO;
+import com.boaentrega.pedidoms.dto.OrcamentoDTO;
 import com.boaentrega.pedidoms.dto.PedidoDTO;
 import com.boaentrega.pedidoms.request.DescontoPedidoRequest;
 import com.boaentrega.pedidoms.service.PedidoService;
@@ -54,6 +56,14 @@ public class PedidoResource {
     	NegociacaoDTO negociacao = pedidoService.getValorNegociado(request.pedidoId, request.clienteId);
     	
     	return ResponseEntity.ok(negociacao);
+    }
+    
+    @GetMapping(value = "/orcamento")
+    public ResponseEntity<OrcamentoDTO> getOrcamento(@RequestParam String cepOrigem, @RequestParam String cepDestino){
+    	
+    	OrcamentoDTO orcamento = pedidoService.getOrcamento(cepOrigem, cepDestino);
+    	
+    	return ResponseEntity.ok(orcamento);
     }
     
     public ResponseEntity<NegociacaoDTO> getValorNegociadoAlternative(DescontoPedidoRequest request){

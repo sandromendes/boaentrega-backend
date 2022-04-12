@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.boaentrega.pedidoms.domain.Cliente;
 import com.boaentrega.pedidoms.domain.Pedido;
 import com.boaentrega.pedidoms.dto.NegociacaoDTO;
+import com.boaentrega.pedidoms.dto.OrcamentoDTO;
 import com.boaentrega.pedidoms.feignclients.AnticorruptionFeignClient;
 import com.boaentrega.pedidoms.feignclients.ClienteFeignClient;
 import com.boaentrega.pedidoms.infrastructure.PedidoRepository;
@@ -81,6 +82,15 @@ public class PedidoServiceImpl implements PedidoService {
     	String[] mensagens = {"Acessou o cliente-ms com sucesso", "Acessou a camada anticorrupção com sucesso"};
     	
     	return new NegociacaoDTO(pedido.getNumero(), pedido.getTotal(), cliente.getDescontoContratual(), valor, custo, mensagens);
+	}
+
+	@Override
+	public OrcamentoDTO getOrcamento(String cepOrigem, String cepDestino) {
+		Double custo = anticorruptionFeignClient.calcularCustoRota(cepOrigem, cepDestino).getBody();
+    	
+    	String[] mensagens = {"Acessou a camada anticorrupção com sucesso"};
+    	
+    	return new OrcamentoDTO(custo, mensagens);
 	}
 
 }

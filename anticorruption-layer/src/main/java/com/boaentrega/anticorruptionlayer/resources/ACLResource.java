@@ -1,6 +1,7 @@
 package com.boaentrega.anticorruptionlayer.resources;
 
-import java.util.Random;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,17 @@ public class ACLResource {
 		
 		//Mock
 		int diff = Math.abs(Integer.parseInt(cepDestino) - Integer.parseInt(cepOrigem));
-		
-		Random random = new Random();
-		double randomValue = 100 + (diff) * random.nextDouble();
 
-		return ResponseEntity.ok(randomValue);
+		double factor = Math.PI;
+		
+		BigDecimal bdFactor = new BigDecimal(Double.toString(factor));
+		bdFactor = bdFactor.setScale(2, RoundingMode.HALF_UP);
+		
+		double mockValue = diff / (bdFactor.doubleValue()*100);
+
+		BigDecimal value = new BigDecimal(Double.toString(mockValue));
+		value = value.setScale(2, RoundingMode.HALF_UP);
+		
+		return ResponseEntity.ok(value.doubleValue());
 	}
 }
