@@ -9,18 +9,20 @@ public class NegociacaoDTO {
 	public Double valorOriginal;
 	public Double desconto;
 	public Double valorNegociado;
-	public String message;
+	public Double valorRota;
+	public String[] message;
 	
 	public NegociacaoDTO() {
 		this.codigo = UUID.randomUUID();
 	}
 
-	public NegociacaoDTO(String numeroPedido, Double valorOriginal, Double desconto, Double valorNegociado, String message) {
+	public NegociacaoDTO(String numeroPedido, Double valorOriginal, Double desconto, Double valorNegociado, Double valorRota, String[] message) {
 		super();
 		this.numeroPedido = numeroPedido;
 		this.valorOriginal = valorOriginal;
 		this.desconto = desconto;
 		this.valorNegociado = valorNegociado;
+		this.valorRota = valorRota;
 		this.message = message;
 		this.codigo = UUID.randomUUID();
 	}
@@ -64,12 +66,20 @@ public class NegociacaoDTO {
 	public void setValorNegociado(Double valorNegociado) {
 		this.valorNegociado = valorNegociado;
 	}
+	
+	public Double getValorRota() {
+		return valorRota;
+	}
 
-	public String getMessage() {
+	public void setValorRota(Double valorRota) {
+		this.valorRota = valorRota;
+	}
+
+	public String[] getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(String[] message) {
 		this.message = message;
 	}
 }

@@ -62,9 +62,11 @@ public class PedidoResource {
     	
     	Double descontoPadrao = 0.5;
     	
+    	Double custoPadrao = 1000.0;
+    	
     	Double valor = pedido.getTotal() - pedido.getTotal()*descontoPadrao/100;
     	
-    	NegociacaoDTO negociacao = new NegociacaoDTO(pedido.getNumero(), pedido.getTotal(), descontoPadrao, valor, "Chamada fallback... Foi aplicado o desconto padrão");
+    	NegociacaoDTO negociacao = new NegociacaoDTO(pedido.getNumero(), pedido.getTotal(), descontoPadrao, valor, custoPadrao, new String[] { "Chamada fallback... Foi aplicado o desconto padrão"});
     	
     	return ResponseEntity.ok(negociacao);
     }
