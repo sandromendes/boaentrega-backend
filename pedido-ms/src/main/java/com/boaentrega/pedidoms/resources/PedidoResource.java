@@ -1,5 +1,7 @@
 package com.boaentrega.pedidoms.resources;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,11 +60,34 @@ public class PedidoResource {
     	return ResponseEntity.ok(negociacao);
     }
     
+    @HystrixCommand(fallbackMethod = "getOrcamentoAlternative")
     @GetMapping(value = "/orcamento")
     public ResponseEntity<OrcamentoDTO> getOrcamento(@RequestParam String cepOrigem, @RequestParam String cepDestino){
     	
     	OrcamentoDTO orcamento = pedidoService.getOrcamento(cepOrigem, cepDestino);
     	
+    	return ResponseEntity.ok(orcamento);
+    }
+    
+    public ResponseEntity<OrcamentoDTO> getOrcamentoAlternative(@RequestParam String cepOrigem, @RequestParam String cepDestino){
+    	
+    	//Mock
+		int diff = Math.abs(Integer.parseInt(cepDestino) - Integer.parseInt(cepOrigem));
+
+		double factor = Math.PI;
+		
+		BigDecimal bdFactor = new BigDecimal(Double.toString(factor));
+		bdFactor = bdFactor.setScale(2, RoundingMode.HALF_UP);
+		
+		double mockValue = diff / (bdFactor.doubleValue()*100);
+
+		BigDecimal value = new BigDecimal(Double.toString(mockValue));
+		value = value.setScale(2, RoundingMode.HALF_UP);
+		
+		String[] mensagens = {"Recuperação de chamada fallback"};
+				
+		OrcamentoDTO orcamento = new OrcamentoDTO(value.doubleValue(), mensagens);
+		
     	return ResponseEntity.ok(orcamento);
     }
     
